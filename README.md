@@ -31,7 +31,7 @@ bxl transform images to webp [input] [options]
 
 **Options:**
 
-- `-o, --output <dir>` - Output directory (default: "./output")
+- `-o, --output <dir>` - Output directory (default: ".")
 - `-q, --quality <number>` - Quality 0-100 (default: "100")
 
 **Examples:**
