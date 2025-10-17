@@ -102,6 +102,33 @@ bxl remove "*.jpg"
 bxl remove "test*.txt"
 ```
 
+### Rename Files
+
+Rename files in the current directory using a pattern:
+
+```bash
+bxl rename to <pattern>
+```
+
+**Arguments:**
+
+- `pattern` - Naming pattern with `{index}` placeholder for sequential numbering
+
+**Examples:**
+
+```bash
+# Rename all files to model_1, model_2, model_3 (preserving extensions)
+bxl rename to "model_{index}"
+
+# Rename all files to image_1.jpg, image_2.jpg, etc. (with specific extension)
+bxl rename to "image_{index}.jpg"
+
+# Rename files to document_1, document_2, etc.
+bxl rename to "document_{index}"
+```
+
+Files are renamed in alphabetical order. If the pattern doesn't include an extension, the original file extensions are preserved.
+
 ## Supported Image Formats
 
 The tool supports conversion from the following formats:
