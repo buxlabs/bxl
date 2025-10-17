@@ -50,6 +50,33 @@ bxl transform images to webp image.png
 bxl transform images to webp ./images -o ./webp-images -q 90
 ```
 
+### Add Dimensions to Image Filenames
+
+Add image dimensions to filenames:
+
+```bash
+bxl transform images add dimensions [input]
+```
+
+**Arguments:**
+
+- `input` - Input directory or file (default: current directory)
+
+**Examples:**
+
+```bash
+# Add dimensions to all images in current directory
+bxl transform images add dimensions
+
+# Add dimensions to images in a specific directory
+bxl transform images add dimensions ./images
+
+# Add dimensions to a single image
+bxl transform images add dimensions image.jpg
+```
+
+This command creates new files with dimensions added to the filename (e.g., `image.jpg` becomes `image_100x100.jpg`). Original files are preserved.
+
 ### Remove Files
 
 Remove files matching a pattern in the current directory:
