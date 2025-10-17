@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 
 import { Command } from "commander";
-import { transformImagesToWebp, addDimensionsToImages } from "../lib/transform.js";
+import {
+  transformImagesToWebp,
+  addDimensionsToImages,
+} from "../lib/transform.js";
 import { removeFiles } from "../lib/remove.js";
 import { renameFiles } from "../lib/rename.js";
 
@@ -58,7 +61,9 @@ program
     }
   });
 
-const rename = program.command("rename").description("Rename files in directory");
+const rename = program
+  .command("rename")
+  .description("Rename files in directory");
 
 rename
   .command("to <pattern>")
@@ -66,7 +71,6 @@ rename
   .action(async (pattern) => {
     try {
       const result = await renameFiles(pattern);
-      console.log(`✓ Renamed ${result.count} file(s)`);
     } catch (error) {
       console.error("Error:", error.message);
       process.exit(1);
