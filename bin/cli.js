@@ -3,6 +3,7 @@
 import { Command } from "commander";
 import { transformImagesToWebp, addDimensionsToImages } from "../lib/transform.js";
 import { removeFiles } from "../lib/remove.js";
+import { renameFiles } from "../lib/rename.js";
 
 const program = new Command();
 
@@ -51,6 +52,21 @@ program
   .action(async (pattern) => {
     try {
       await removeFiles(pattern);
+    } catch (error) {
+      console.error("Error:", error.message);
+      process.exit(1);
+    }
+  });
+
+const rename = program.command("rename").description("Rename files in directory");
+
+rename
+  .command("to <pattern>")
+  .description("Rename files using pattern with {index} placeholder")
+  .action(async (pattern) => {
+    try {
+      const result = await renameFiles(pattern);
+      console.log(`✓ Renamed ${result.count} file(s)`);
     } catch (error) {
       console.error("Error:", error.message);
       process.exit(1);
