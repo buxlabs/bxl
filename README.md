@@ -26,11 +26,13 @@ bxl transform images to webp [input] [options]
 ```
 
 **Arguments:**
+
 - `input` - Input directory or file (default: current directory)
 
 **Options:**
+
 - `-o, --output <dir>` - Output directory (default: "./output")
-- `-q, --quality <number>` - Quality 0-100 (default: "80")
+- `-q, --quality <number>` - Quality 0-100 (default: "100")
 
 **Examples:**
 
@@ -51,6 +53,7 @@ bxl transform images to webp ./images -o ./webp-images -q 90
 ## Supported Image Formats
 
 The tool supports conversion from the following formats:
+
 - JPEG (.jpg, .jpeg)
 - PNG (.png)
 - GIF (.gif)
@@ -61,4 +64,4 @@ The tool supports conversion from the following formats:
 
 ## License
 
-ISC
+MIT

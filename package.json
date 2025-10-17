@@ -17,7 +17,7 @@
     "images"
   ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "commander": "^14.0.1",
     "sharp": "^0.34.4"
