@@ -2,6 +2,7 @@
 
 import { Command } from "commander";
 import { transformImagesToWebp } from "../lib/transform.js";
+import { removeFiles } from "../lib/remove.js";
 
 const program = new Command();
 
@@ -24,6 +25,18 @@ to.command("webp [input]")
   .action(async (input = ".", options) => {
     try {
       await transformImagesToWebp(input, options);
+    } catch (error) {
+      console.error("Error:", error.message);
+      process.exit(1);
+    }
+  });
+
+program
+  .command("remove <pattern>")
+  .description("Remove files matching the given pattern in current directory")
+  .action(async (pattern) => {
+    try {
+      await removeFiles(pattern);
     } catch (error) {
       console.error("Error:", error.message);
       process.exit(1);
