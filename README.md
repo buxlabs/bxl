@@ -17,31 +17,6 @@ npm link
 
 ## Usage
 
-### Remove Files
-
-Remove files matching a pattern in the current directory:
-
-```bash
-bxl remove <pattern>
-```
-
-**Arguments:**
-
-- `pattern` - File pattern to match (e.g., "*.png", "test*.txt")
-
-**Examples:**
-
-```bash
-# Remove all PNG files in current directory
-bxl remove "*.png"
-
-# Remove all JPG files
-bxl remove "*.jpg"
-
-# Remove files starting with 'test' and ending with .txt
-bxl remove "test*.txt"
-```
-
 ### Transform Images to WebP
 
 Convert images to WebP format:
@@ -73,6 +48,31 @@ bxl transform images to webp image.png
 
 # Specify output directory and quality
 bxl transform images to webp ./images -o ./webp-images -q 90
+```
+
+### Remove Files
+
+Remove files matching a pattern in the current directory:
+
+```bash
+bxl remove <pattern>
+```
+
+**Arguments:**
+
+- `pattern` - File pattern to match (e.g., "_.png", "test_.txt")
+
+**Examples:**
+
+```bash
+# Remove all PNG files in current directory
+bxl remove "*.png"
+
+# Remove all JPG files
+bxl remove "*.jpg"
+
+# Remove files starting with 'test' and ending with .txt
+bxl remove "test*.txt"
 ```
 
 ## Supported Image Formats
