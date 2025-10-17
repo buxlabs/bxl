@@ -112,7 +112,10 @@ bxl rename to <pattern>
 
 **Arguments:**
 
-- `pattern` - Naming pattern with `{index}` placeholder for sequential numbering
+- `pattern` - Naming pattern with placeholders:
+  - `{index}` - Sequential numbering
+  - `{width}` - Image width in pixels (images only)
+  - `{height}` - Image height in pixels (images only)
 
 **Examples:**
 
@@ -125,9 +128,17 @@ bxl rename to "image_{index}.jpg"
 
 # Rename files to document_1, document_2, etc.
 bxl rename to "document_{index}"
+
+# Rename images with dimensions: model_1_100x200.png, model_2_300x150.png, etc.
+bxl rename to "model_{index}_{width}x{height}"
+
+# Rename images with only dimensions: photo_800x600.png, photo_1920x1080.jpg, etc.
+bxl rename to "photo_{width}x{height}"
 ```
 
 Files are renamed in alphabetical order. If the pattern doesn't include an extension, the original file extensions are preserved.
+
+**Note:** When using `{width}` or `{height}` placeholders, only image files will be renamed. Non-image files will be skipped with a warning message.
 
 ## Supported Image Formats
 
