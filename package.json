@@ -1,0 +1,25 @@
+{
+  "name": "bxl",
+  "version": "1.0.0",
+  "description": "CLI toolkit",
+  "main": "index.js",
+  "type": "module",
+  "bin": {
+    "bxl": "./bin/cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cli",
+    "toolkit",
+    "webp",
+    "images"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^14.0.1",
+    "sharp": "^0.34.4"
+  }
+}
