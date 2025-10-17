@@ -7,10 +7,19 @@ import {
 } from "../lib/transform.js";
 import { removeFiles } from "../lib/remove.js";
 import { renameFiles } from "../lib/rename.js";
+import { readFile } from "fs/promises";
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const packageJson = JSON.parse(
+  await readFile(join(__dirname, "..", "package.json"), "utf-8")
+);
 
 const program = new Command();
 
-program.name("bxl").description("CLI toolkit").version("1.0.0");
+program.name("bxl").description("CLI toolkit").version(packageJson.version);
 
 const transform = program
   .command("transform")
@@ -75,6 +84,13 @@ rename
       console.error("Error:", error.message);
       process.exit(1);
     }
+  });
+
+program
+  .command("version")
+  .description("Display version information")
+  .action(() => {
+    console.log(packageJson.version);
   });
 
 program.parse();
