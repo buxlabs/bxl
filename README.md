@@ -77,6 +77,49 @@ bxl transform image.jpg add dimensions
 
 This command creates new files with dimensions added to the filename (e.g., `image.jpg` becomes `image_100x100.jpg`). Original files are preserved.
 
+### Generate Files
+
+Generate placeholder images with specific dimensions based on the filename pattern:
+
+```bash
+bxl generate <filename>
+```
+
+**Arguments:**
+
+- `filename` - Filename with dimensions in the format `name_{width}x{height}.ext`
+
+**Supported formats:**
+
+- PNG (.png)
+- JPEG (.jpg, .jpeg)
+- WebP (.webp)
+
+**Examples:**
+
+```bash
+# Generate a 300x200 PNG placeholder image
+bxl generate placeholder_300x200.png
+
+# Generate a 400x300 JPEG placeholder image
+bxl generate banner_400x300.jpg
+
+# Generate a 150x150 WebP square image
+bxl generate avatar_150x150.webp
+
+# Generate multiple placeholder images
+bxl generate hero_1920x1080.png
+bxl generate thumbnail_200x200.webp
+bxl generate logo_500x200.png
+```
+
+**Aliases:**
+
+- `bxl gen <filename>`
+- `bxl g <filename>`
+
+The generated images are placeholder graphics with a light gray background that display their dimensions as text in the center. This is useful for creating mockup images during development or testing when you need images of specific sizes.
+
 ### Fetch Files
 
 Download a file from a URL to the current directory:
