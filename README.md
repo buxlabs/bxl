@@ -22,7 +22,7 @@ npm link
 Convert images to WebP format:
 
 ```bash
-bxl transform images to webp [input] [options]
+bxl transform to webp [input] [options]
 ```
 
 **Arguments:**
@@ -38,16 +38,16 @@ bxl transform images to webp [input] [options]
 
 ```bash
 # Convert all images in current directory
-bxl transform images to webp
+bxl transform to webp
 
 # Convert images from a specific directory
-bxl transform images to webp ./images
+bxl transform to webp ./images
 
 # Convert a single image
-bxl transform images to webp image.png
+bxl transform to webp image.png
 
 # Specify output directory and quality
-bxl transform images to webp ./images -o ./webp-images -q 90
+bxl transform to webp ./images -o ./webp-images -q 90
 ```
 
 ### Add Dimensions to Image Filenames
