@@ -61,3 +61,31 @@ test("should display help for transform to webp command", async () => {
     "Should show quality option"
   );
 });
+
+test("should display help for transform with new syntax", async () => {
+  const { stdout } = await execAsync('node bin/cli.js transform "./images" to webp --help', {
+    cwd: join(__dirname, ".."),
+  });
+  assert.ok(
+    stdout.includes("Convert images to webp format"),
+    "Should show webp conversion help with new syntax"
+  );
+  assert.ok(
+    stdout.includes("--output"),
+    "Should show output option with new syntax"
+  );
+  assert.ok(
+    stdout.includes("--quality"),
+    "Should show quality option with new syntax"
+  );
+});
+
+test("should support new syntax: bxl transform <path> to webp", async () => {
+  const { stdout } = await execAsync('node bin/cli.js transform "." to webp --help', {
+    cwd: join(__dirname, ".."),
+  });
+  assert.ok(
+    stdout.includes("Convert images to webp format"),
+    "Should work with new command syntax"
+  );
+});
