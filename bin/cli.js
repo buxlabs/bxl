@@ -21,6 +21,23 @@ const program = new Command();
 
 program.name("bxl").description("CLI toolkit").version(packageJson.version);
 
+// Preprocess arguments to handle "transform <input> to webp" syntax
+// Convert: ["transform", "<path>", "to", "webp"] -> ["transform", "to", "webp", "<path>"]
+// Convert: ["transform", "<path>", "images", "add", "dimensions"] -> ["transform", "images", "add", "dimensions", "<path>"]
+const args = process.argv.slice(2);
+if (args.length >= 2 && args[0] === "transform") {
+  const input = args[1];
+  // Check if second argument is not a known subcommand
+  if (input !== "to" && input !== "images" && !input.startsWith("-")) {
+    // Reorder: move input to the end
+    const restArgs = args.slice(2);
+    process.argv = [...process.argv.slice(0, 2), "transform", ...restArgs, input];
+  }
+}
+
+// Store the input path for use in nested commands
+let transformInput = ".";
+
 const transform = program
   .command("transform")
   .description("Transform operations");

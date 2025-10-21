@@ -22,7 +22,7 @@ npm link
 Convert images to WebP format:
 
 ```bash
-bxl transform to webp [input] [options]
+bxl transform [input] to webp [options]
 ```
 
 **Arguments:**
@@ -38,16 +38,16 @@ bxl transform to webp [input] [options]
 
 ```bash
 # Convert all images in current directory
-bxl transform to webp
+bxl transform . to webp
 
 # Convert images from a specific directory
-bxl transform to webp ./images
+bxl transform ./images to webp
 
 # Convert a single image
-bxl transform to webp image.png
+bxl transform image.png to webp
 
 # Specify output directory and quality
-bxl transform to webp ./images -o ./webp-images -q 90
+bxl transform ./images to webp -o ./webp-images -q 90
 ```
 
 ### Add Dimensions to Image Filenames
@@ -55,7 +55,7 @@ bxl transform to webp ./images -o ./webp-images -q 90
 Add image dimensions to filenames:
 
 ```bash
-bxl transform images add dimensions [input]
+bxl transform [input] images add dimensions
 ```
 
 **Arguments:**
@@ -66,13 +66,13 @@ bxl transform images add dimensions [input]
 
 ```bash
 # Add dimensions to all images in current directory
-bxl transform images add dimensions
+bxl transform . images add dimensions
 
 # Add dimensions to images in a specific directory
-bxl transform images add dimensions ./images
+bxl transform ./images images add dimensions
 
 # Add dimensions to a single image
-bxl transform images add dimensions image.jpg
+bxl transform image.jpg images add dimensions
 ```
 
 This command creates new files with dimensions added to the filename (e.g., `image.jpg` becomes `image_100x100.jpg`). Original files are preserved.
