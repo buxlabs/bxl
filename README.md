@@ -107,6 +107,8 @@ bxl remove "test*.txt"
 Rename files in the current directory using a pattern:
 
 ```bash
+bxl rename <pattern>
+# or
 bxl rename to <pattern>
 ```
 
@@ -121,19 +123,22 @@ bxl rename to <pattern>
 
 ```bash
 # Rename all files to model_1, model_2, model_3 (preserving extensions)
-bxl rename to "model_{index}"
+bxl rename "model_{index}"
 
 # Rename all files to image_1.jpg, image_2.jpg, etc. (with specific extension)
-bxl rename to "image_{index}.jpg"
+bxl rename "image_{index}.jpg"
 
 # Rename files to document_1, document_2, etc.
-bxl rename to "document_{index}"
+bxl rename "document_{index}"
 
 # Rename images with dimensions: model_1_100x200.png, model_2_300x150.png, etc.
-bxl rename to "model_{index}_{width}x{height}"
+bxl rename "model_{index}_{width}x{height}"
 
 # Rename images with only dimensions: photo_800x600.png, photo_1920x1080.jpg, etc.
-bxl rename to "photo_{width}x{height}"
+bxl rename "photo_{width}x{height}"
+
+# Both syntaxes work the same way
+bxl rename to "model_{index}"
 ```
 
 Files are renamed in alphabetical order. If the pattern doesn't include an extension, the original file extensions are preserved.

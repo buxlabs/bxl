@@ -24,6 +24,7 @@ program.name("bxl").description("CLI toolkit").version(packageJson.version);
 // Preprocess arguments to handle "transform <input> to webp" syntax
 // Convert: ["transform", "<path>", "to", "webp"] -> ["transform", "to", "webp", "<path>"]
 // Convert: ["transform", "<path>", "add", "dimensions"] -> ["transform", "add", "dimensions", "<path>"]
+// Convert: ["rename", "<pattern>"] -> ["rename", "to", "<pattern>"]
 const args = process.argv.slice(2);
 if (args.length >= 2 && args[0] === "transform") {
   const input = args[1];
@@ -33,6 +34,13 @@ if (args.length >= 2 && args[0] === "transform") {
     const restArgs = args.slice(2);
     process.argv = [...process.argv.slice(0, 2), "transform", ...restArgs, input];
   }
+}
+
+// Preprocess arguments to handle "rename <pattern>" syntax
+// Convert: ["rename", "<pattern>"] -> ["rename", "to", "<pattern>"]
+if (args.length >= 2 && args[0] === "rename" && args[1] !== "to" && !args[1].startsWith("-")) {
+  // Insert "to" between "rename" and the pattern
+  process.argv = [...process.argv.slice(0, 2), "rename", "to", args[1], ...args.slice(2)];
 }
 
 // Store the input path for use in nested commands
