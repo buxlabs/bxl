@@ -50,33 +50,6 @@ bxl transform image.png to webp
 bxl transform ./images to webp -o ./webp-images -q 90
 ```
 
-#### Add metadata
-
-Add image dimensions to filenames:
-
-```bash
-bxl transform [input] add dimensions
-```
-
-**Arguments:**
-
-- `input` - Input directory or file (default: current directory)
-
-**Examples:**
-
-```bash
-# Add dimensions to all images in current directory
-bxl transform . add dimensions
-
-# Add dimensions to images in a specific directory
-bxl transform ./images add dimensions
-
-# Add dimensions to a single image
-bxl transform image.jpg add dimensions
-```
-
-This command creates new files with dimensions added to the filename (e.g., `image.jpg` becomes `image_100x100.jpg`). Original files are preserved.
-
 ### Generate Files
 
 Generate placeholder images with specific dimensions based on the filename pattern:

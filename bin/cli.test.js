@@ -17,7 +17,11 @@ test("should display version with --version flag", async () => {
   const packageJson = JSON.parse(
     await readFile(join(__dirname, "..", "package.json"), "utf-8")
   );
-  assert.equal(stdout.trim(), packageJson.version, "Should show package.json version");
+  assert.equal(
+    stdout.trim(),
+    packageJson.version,
+    "Should show package.json version"
+  );
 });
 
 test("should display version with version command", async () => {
@@ -27,16 +31,23 @@ test("should display version with version command", async () => {
   const packageJson = JSON.parse(
     await readFile(join(__dirname, "..", "package.json"), "utf-8")
   );
-  assert.equal(stdout.trim(), packageJson.version, "Should show package.json version");
+  assert.equal(
+    stdout.trim(),
+    packageJson.version,
+    "Should show package.json version"
+  );
 });
 
 test("version command and --version flag should output same version", async () => {
   const { stdout: versionFlag } = await execAsync("node bin/cli.js --version", {
     cwd: join(__dirname, ".."),
   });
-  const { stdout: versionCommand } = await execAsync("node bin/cli.js version", {
-    cwd: join(__dirname, ".."),
-  });
+  const { stdout: versionCommand } = await execAsync(
+    "node bin/cli.js version",
+    {
+      cwd: join(__dirname, ".."),
+    }
+  );
   assert.equal(
     versionFlag.trim(),
     versionCommand.trim(),
@@ -45,27 +56,27 @@ test("version command and --version flag should output same version", async () =
 });
 
 test("should display help for transform to webp command", async () => {
-  const { stdout } = await execAsync("node bin/cli.js transform to webp --help", {
-    cwd: join(__dirname, ".."),
-  });
+  const { stdout } = await execAsync(
+    "node bin/cli.js transform to webp --help",
+    {
+      cwd: join(__dirname, ".."),
+    }
+  );
   assert.ok(
     stdout.includes("Convert images to webp format"),
     "Should show webp conversion help"
   );
-  assert.ok(
-    stdout.includes("--output"),
-    "Should show output option"
-  );
-  assert.ok(
-    stdout.includes("--quality"),
-    "Should show quality option"
-  );
+  assert.ok(stdout.includes("--output"), "Should show output option");
+  assert.ok(stdout.includes("--quality"), "Should show quality option");
 });
 
 test("should display help for transform with new syntax", async () => {
-  const { stdout } = await execAsync('node bin/cli.js transform "./images" to webp --help', {
-    cwd: join(__dirname, ".."),
-  });
+  const { stdout } = await execAsync(
+    'node bin/cli.js transform "./images" to webp --help',
+    {
+      cwd: join(__dirname, ".."),
+    }
+  );
   assert.ok(
     stdout.includes("Convert images to webp format"),
     "Should show webp conversion help with new syntax"
@@ -81,31 +92,14 @@ test("should display help for transform with new syntax", async () => {
 });
 
 test("should support new syntax: bxl transform <path> to webp", async () => {
-  const { stdout } = await execAsync('node bin/cli.js transform "." to webp --help', {
-    cwd: join(__dirname, ".."),
-  });
+  const { stdout } = await execAsync(
+    'node bin/cli.js transform "." to webp --help',
+    {
+      cwd: join(__dirname, ".."),
+    }
+  );
   assert.ok(
     stdout.includes("Convert images to webp format"),
     "Should work with new command syntax"
-  );
-});
-
-test("should display help for transform add dimensions command", async () => {
-  const { stdout } = await execAsync("node bin/cli.js transform add dimensions --help", {
-    cwd: join(__dirname, ".."),
-  });
-  assert.ok(
-    stdout.includes("Add image dimensions to filename"),
-    "Should show add dimensions help"
-  );
-});
-
-test("should support new syntax: bxl transform <path> add dimensions", async () => {
-  const { stdout } = await execAsync('node bin/cli.js transform "." add dimensions --help', {
-    cwd: join(__dirname, ".."),
-  });
-  assert.ok(
-    stdout.includes("Add image dimensions to filename"),
-    "Should work with new add dimensions syntax"
   );
 });

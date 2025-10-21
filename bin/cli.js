@@ -1,10 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from "commander";
-import {
-  transformImagesToWebp,
-  addDimensionsToImages,
-} from "../lib/transform.js";
+import { transformFiles } from "../lib/transform.js";
 import { removeFiles } from "../lib/remove.js";
 import { renameFiles } from "../lib/rename.js";
 import { fetchFile } from "../lib/fetch.js";
@@ -57,21 +54,7 @@ to.command("webp [input]")
   .description("Convert images to webp format")
   .action(async (input = ".", options) => {
     try {
-      await transformImagesToWebp(input, options);
-    } catch (error) {
-      console.error("Error:", error.message);
-      process.exit(1);
-    }
-  });
-
-const add = transform.command("add").description("Add metadata to images");
-
-add
-  .command("dimensions [input]")
-  .description("Add image dimensions to filename")
-  .action(async (input = ".") => {
-    try {
-      await addDimensionsToImages(input);
+      await transformFiles(input, options);
     } catch (error) {
       console.error("Error:", error.message);
       process.exit(1);
