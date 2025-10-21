@@ -22,7 +22,7 @@ test("should display help for fetch command", async () => {
   assert.ok(stdout.includes("--output"), "Should show output option");
 });
 
-test.skip("should fetch a file from a data URL", async () => {
+test("should fetch a file from a data URL", async () => {
   const testDir = join(tmpdir(), "bxl-fetch-cli-test-" + Date.now());
   await mkdir(testDir, { recursive: true });
 
@@ -51,7 +51,7 @@ test.skip("should fetch a file from a data URL", async () => {
   }
 });
 
-test.skip("should fetch without custom output filename", async () => {
+test("should fetch without custom output filename", async () => {
   const testDir = join(tmpdir(), "bxl-fetch-cli-test-no-output-" + Date.now());
   await mkdir(testDir, { recursive: true });
 

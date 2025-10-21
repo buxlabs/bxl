@@ -119,7 +119,8 @@ program
   .option("-o, --output <filename>", "Output filename")
   .action(async (url, options) => {
     try {
-      await fetchFile(url, options);
+      const result = await fetchFile(url, options);
+      console.log(`Downloaded ${result.filename} (${result.size} bytes)`);
     } catch (error) {
       console.error("Error:", error.message);
       process.exit(1);
