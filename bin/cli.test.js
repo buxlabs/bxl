@@ -89,3 +89,23 @@ test("should support new syntax: bxl transform <path> to webp", async () => {
     "Should work with new command syntax"
   );
 });
+
+test("should display help for transform add dimensions command", async () => {
+  const { stdout } = await execAsync("node bin/cli.js transform add dimensions --help", {
+    cwd: join(__dirname, ".."),
+  });
+  assert.ok(
+    stdout.includes("Add image dimensions to filename"),
+    "Should show add dimensions help"
+  );
+});
+
+test("should support new syntax: bxl transform <path> add dimensions", async () => {
+  const { stdout } = await execAsync('node bin/cli.js transform "." add dimensions --help', {
+    cwd: join(__dirname, ".."),
+  });
+  assert.ok(
+    stdout.includes("Add image dimensions to filename"),
+    "Should work with new add dimensions syntax"
+  );
+});
