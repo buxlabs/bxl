@@ -17,12 +17,14 @@ npm link
 
 ## Usage
 
-### Transform Images to WebP
+### Transform Files
 
-Convert images to WebP format:
+Transforms files from one format to another.
+
+For example, you can transform images to webp format:
 
 ```bash
-bxl transform [input] to webp [options]
+bxl transform [input] to [output] [options]
 ```
 
 **Arguments:**
@@ -50,7 +52,7 @@ bxl transform image.png to webp
 bxl transform ./images to webp -o ./webp-images -q 90
 ```
 
-### Add Dimensions to Image Filenames
+#### Add metadata
 
 Add image dimensions to filenames:
 
@@ -121,19 +123,19 @@ bxl rename to <pattern>
 
 ```bash
 # Rename all files to model_1, model_2, model_3 (preserving extensions)
-bxl rename to "model_{index}"
+bxl rename . to "model_{index}"
 
 # Rename all files to image_1.jpg, image_2.jpg, etc. (with specific extension)
-bxl rename to "image_{index}.jpg"
+bxl rename . to "image_{index}.jpg"
 
 # Rename files to document_1, document_2, etc.
-bxl rename to "document_{index}"
+bxl rename . to "document_{index}"
 
 # Rename images with dimensions: model_1_100x200.png, model_2_300x150.png, etc.
-bxl rename to "model_{index}_{width}x{height}"
+bxl rename . to "model_{index}_{width}x{height}"
 
 # Rename images with only dimensions: photo_800x600.png, photo_1920x1080.jpg, etc.
-bxl rename to "photo_{width}x{height}"
+bxl rename . to "photo_{width}x{height}"
 ```
 
 Files are renamed in alphabetical order. If the pattern doesn't include an extension, the original file extensions are preserved.

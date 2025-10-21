@@ -31,7 +31,12 @@ if (args.length >= 2 && args[0] === "transform") {
   if (input !== "to" && input !== "add" && !input.startsWith("-")) {
     // Reorder: move input to the end
     const restArgs = args.slice(2);
-    process.argv = [...process.argv.slice(0, 2), "transform", ...restArgs, input];
+    process.argv = [
+      ...process.argv.slice(0, 2),
+      "transform",
+      ...restArgs,
+      input,
+    ];
   }
 }
 
@@ -84,15 +89,15 @@ program
   });
 
 const rename = program
-  .command("rename")
+  .command("rename <input>")
   .description("Rename files in directory");
 
 rename
   .command("to <pattern>")
   .description("Rename files using pattern with {index} placeholder")
-  .action(async (pattern) => {
+  .action(async (input, pattern) => {
     try {
-      const result = await renameFiles(pattern);
+      const result = await renameFiles(input, pattern);
     } catch (error) {
       console.error("Error:", error.message);
       process.exit(1);
