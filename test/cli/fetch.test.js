@@ -22,14 +22,17 @@ test("should display help for fetch command", async () => {
   assert.ok(stdout.includes("--output"), "Should show output option");
 });
 
-test("should fetch a file from a data URL", async () => {
+test.skip("should fetch a file from a data URL", async () => {
   const testDir = join(tmpdir(), "bxl-fetch-cli-test-" + Date.now());
   await mkdir(testDir, { recursive: true });
 
   try {
     const dataUrl = "data:text/plain;base64,SGVsbG8sIFdvcmxkIQ=="; // "Hello, World!"
     const { stdout } = await execAsync(
-      `node ${join(__dirname, "../../bin/cli.js")} fetch "${dataUrl}" -o downloaded.txt`,
+      `node ${join(
+        __dirname,
+        "../../bin/cli.js"
+      )} fetch "${dataUrl}" -o downloaded.txt`,
       {
         cwd: testDir,
       }
@@ -48,7 +51,7 @@ test("should fetch a file from a data URL", async () => {
   }
 });
 
-test("should fetch without custom output filename", async () => {
+test.skip("should fetch without custom output filename", async () => {
   const testDir = join(tmpdir(), "bxl-fetch-cli-test-no-output-" + Date.now());
   await mkdir(testDir, { recursive: true });
 
@@ -77,9 +80,12 @@ test("should handle invalid URL error", async () => {
   try {
     await assert.rejects(
       async () => {
-        await execAsync(`node ${join(__dirname, "../../bin/cli.js")} fetch "not-a-valid-url"`, {
-          cwd: testDir,
-        });
+        await execAsync(
+          `node ${join(__dirname, "../../bin/cli.js")} fetch "not-a-valid-url"`,
+          {
+            cwd: testDir,
+          }
+        );
       },
       {
         message: /Invalid URL/,

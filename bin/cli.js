@@ -8,6 +8,7 @@ import {
 import { removeFiles } from "../lib/remove.js";
 import { renameFiles } from "../lib/rename.js";
 import { fetchFile } from "../lib/fetch.js";
+import { generateFile } from "../lib/generate.js";
 import { readFile } from "fs/promises";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
@@ -118,8 +119,21 @@ program
   .option("-o, --output <filename>", "Output filename")
   .action(async (url, options) => {
     try {
-      const result = await fetchFile(url, options);
-      console.log(`✓ Downloaded: ${result.filename} (${result.size} bytes)`);
+      await fetchFile(url, options);
+    } catch (error) {
+      console.error("Error:", error.message);
+      process.exit(1);
+    }
+  });
+
+program
+  .command("generate <filename>")
+  .alias("gen")
+  .alias("g")
+  .description("Generate a file based on the filename")
+  .action(async (filename) => {
+    try {
+      await generateFile(filename);
     } catch (error) {
       console.error("Error:", error.message);
       process.exit(1);
