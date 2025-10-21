@@ -79,6 +79,37 @@ bxl transform image.jpg add dimensions
 
 This command creates new files with dimensions added to the filename (e.g., `image.jpg` becomes `image_100x100.jpg`). Original files are preserved.
 
+### Fetch Files
+
+Download a file from a URL to the current directory:
+
+```bash
+bxl fetch <url>
+```
+
+**Arguments:**
+
+- `url` - URL of the file to download
+
+**Options:**
+
+- `-o, --output <filename>` - Custom output filename
+
+**Examples:**
+
+```bash
+# Download a file from a URL (filename will be derived from URL)
+bxl fetch https://example.com/image.jpg
+
+# Download a file with a custom filename
+bxl fetch https://example.com/image.jpg -o myimage.jpg
+
+# Download any file type
+bxl fetch https://example.com/document.pdf -o document.pdf
+```
+
+The command automatically determines the filename from the URL if not specified. If the URL doesn't contain a filename, a default name will be used.
+
 ### Remove Files
 
 Remove files matching a pattern in the current directory:

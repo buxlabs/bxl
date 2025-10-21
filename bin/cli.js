@@ -7,6 +7,7 @@ import {
 } from "../lib/transform.js";
 import { removeFiles } from "../lib/remove.js";
 import { renameFiles } from "../lib/rename.js";
+import { fetchFile } from "../lib/fetch.js";
 import { readFile } from "fs/promises";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
@@ -109,6 +110,20 @@ program
   .description("Display version information")
   .action(() => {
     console.log(packageJson.version);
+  });
+
+program
+  .command("fetch <url>")
+  .description("Download a file from a URL to the current directory")
+  .option("-o, --output <filename>", "Output filename")
+  .action(async (url, options) => {
+    try {
+      const result = await fetchFile(url, options);
+      console.log(`✓ Downloaded: ${result.filename} (${result.size} bytes)`);
+    } catch (error) {
+      console.error("Error:", error.message);
+      process.exit(1);
+    }
   });
 
 program.parse();
