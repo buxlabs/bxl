@@ -24,6 +24,7 @@ program.name("bxl").description("CLI toolkit").version(packageJson.version);
 // Preprocess arguments to handle "transform <input> to webp" syntax
 // Convert: ["transform", "<path>", "to", "webp"] -> ["transform", "to", "webp", "<path>"]
 // Convert: ["transform", "<path>", "add", "dimensions"] -> ["transform", "add", "dimensions", "<path>"]
+// Convert: ["rename", "<path>", "to", "<pattern>"] -> ["rename", "to", "<pattern>", "<path>"]
 const args = process.argv.slice(2);
 if (args.length >= 2 && args[0] === "transform") {
   const input = args[1];
@@ -36,6 +37,26 @@ if (args.length >= 2 && args[0] === "transform") {
       "transform",
       ...restArgs,
       input,
+    ];
+  }
+}
+
+// Handle rename command shorthand
+if (args.length >= 4 && args[0] === "rename" && args[2] === "to") {
+  const input = args[1];
+  // Check if second argument is not a known subcommand
+  if (input !== "to" && !input.startsWith("-")) {
+    // Reorder: move input to the end
+    // ["rename", "<input>", "to", "<pattern>", ...rest] -> ["rename", "to", "<pattern>", "<input>", ...rest]
+    const pattern = args[3];
+    const restArgs = args.slice(4);
+    process.argv = [
+      ...process.argv.slice(0, 2),
+      "rename",
+      "to",
+      pattern,
+      input,
+      ...restArgs,
     ];
   }
 }
@@ -89,13 +110,13 @@ program
   });
 
 const rename = program
-  .command("rename <input>")
+  .command("rename")
   .description("Rename files in directory");
 
 rename
-  .command("to <pattern>")
+  .command("to <pattern> [input]")
   .description("Rename files using pattern with {index} placeholder")
-  .action(async (input, pattern) => {
+  .action(async (pattern, input = ".") => {
     try {
       const result = await renameFiles(input, pattern);
     } catch (error) {

@@ -109,3 +109,23 @@ test("should support new syntax: bxl transform <path> add dimensions", async () 
     "Should work with new add dimensions syntax"
   );
 });
+
+test("should display help for rename to command", async () => {
+  const { stdout } = await execAsync("node bin/cli.js rename to --help", {
+    cwd: join(__dirname, ".."),
+  });
+  assert.ok(
+    stdout.includes("Rename files using pattern"),
+    "Should show rename help"
+  );
+});
+
+test("should support shorthand syntax: bxl rename <path> to <pattern>", async () => {
+  const { stdout } = await execAsync('node bin/cli.js rename "." to "test_{index}" --help', {
+    cwd: join(__dirname, ".."),
+  });
+  assert.ok(
+    stdout.includes("Rename files using pattern"),
+    "Should work with shorthand rename syntax"
+  );
+});
