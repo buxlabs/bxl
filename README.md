@@ -1,6 +1,6 @@
 # bxl
 
-CLI toolkit for various transformation operations.
+CLI toolkit for various development related tasks.
 
 ## Installation
 
@@ -20,8 +20,6 @@ npm link
 ### Transform Files
 
 Transforms files from one format to another.
-
-For example, you can transform images to webp format:
 
 ```bash
 bxl transform [input] to [output] [options]
