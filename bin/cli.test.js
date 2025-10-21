@@ -43,3 +43,21 @@ test("version command and --version flag should output same version", async () =
     "Both commands should output the same version"
   );
 });
+
+test("should display help for transform to webp command", async () => {
+  const { stdout } = await execAsync("node bin/cli.js transform to webp --help", {
+    cwd: join(__dirname, ".."),
+  });
+  assert.ok(
+    stdout.includes("Convert images to webp format"),
+    "Should show webp conversion help"
+  );
+  assert.ok(
+    stdout.includes("--output"),
+    "Should show output option"
+  );
+  assert.ok(
+    stdout.includes("--quality"),
+    "Should show quality option"
+  );
+});

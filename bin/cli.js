@@ -25,11 +25,7 @@ const transform = program
   .command("transform")
   .description("Transform operations");
 
-const images = transform
-  .command("images")
-  .description("Image transformation operations");
-
-const to = images.command("to").description("Convert images to format");
+const to = transform.command("to").description("Convert images to format");
 
 to.command("webp [input]")
   .option("-o, --output <dir>", "Output directory", ".")
@@ -43,6 +39,10 @@ to.command("webp [input]")
       process.exit(1);
     }
   });
+
+const images = transform
+  .command("images")
+  .description("Image transformation operations");
 
 const add = images.command("add").description("Add metadata to images");
 
