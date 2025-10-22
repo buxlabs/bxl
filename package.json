@@ -14,12 +14,14 @@
     "cli",
     "toolkit",
     "webp",
-    "images"
+    "images",
+    "pdf"
   ],
   "author": "",
   "license": "MIT",
   "dependencies": {
     "commander": "^14.0.1",
+    "pdf-to-img": "^5.0.0",
     "sharp": "^0.34.4"
   }
 }

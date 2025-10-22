@@ -46,8 +46,14 @@ bxl transform ./images to webp
 # Convert a single image
 bxl transform image.png to webp
 
+# Convert a PDF to multiple WebP images (one per page)
+bxl transform document.pdf to webp
+
 # Specify output directory and quality
 bxl transform ./images to webp -o ./webp-images -q 90
+
+# Convert PDF with custom quality and output directory
+bxl transform presentation.pdf to webp -o ./slides -q 85
 ```
 
 ### Generate Files
@@ -198,6 +204,7 @@ The tool supports conversion from the following formats:
 - BMP (.bmp)
 - SVG (.svg)
 - WebP (.webp)
+- PDF (.pdf) - converts each page to a separate image
 
 ## License
 
