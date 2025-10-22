@@ -39,9 +39,6 @@ if (args.length >= 2 && args[0] === "transform") {
   }
 }
 
-// Store the input path for use in nested commands
-let transformInput = ".";
-
 const transform = program
   .command("transform")
   .description("Transform operations");
@@ -73,16 +70,21 @@ program
     }
   });
 
-const rename = program
-  .command("rename <input>")
-  .description("Rename files in directory");
+// Preprocess arguments to handle "rename <input> to <pattern>" syntax
+// Convert: ["rename", "<input>", "to", "<pattern>"] -> ["rename", "<pattern>", "<input>"]
+if (args.length >= 4 && args[0] === "rename" && args[2] === "to") {
+  const input = args[1];
+  const pattern = args[3];
+  process.argv = [...process.argv.slice(0, 2), "rename", pattern, input];
+}
 
-rename
-  .command("to <pattern>")
+program
+  .command("rename <pattern> [input]")
   .description("Rename files using pattern with {index} placeholder")
-  .action(async (input, pattern) => {
+  .action(async (pattern, input = ".") => {
     try {
       const result = await renameFiles(input, pattern);
+      console.log(`✓ Renamed ${result.count} files`);
     } catch (error) {
       console.error("Error:", error.message);
       process.exit(1);
