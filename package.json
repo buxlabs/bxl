@@ -14,7 +14,8 @@
     "cli",
     "toolkit",
     "webp",
-    "images"
+    "images",
+    "pdf"
   ],
   "author": "",
   "license": "MIT",
