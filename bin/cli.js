@@ -70,9 +70,13 @@ program
     }
   });
 
-// Preprocess arguments to handle "rename <input> to <pattern>" syntax
-// Convert: ["rename", "<input>", "to", "<pattern>"] -> ["rename", "<pattern>", "<input>"]
-if (args.length >= 4 && args[0] === "rename" && args[2] === "to") {
+// Preprocess arguments to handle "rename <input> to <pattern>" and "rename to <pattern>" syntax
+if (args.length >= 3 && args[0] === "rename" && args[1] === "to") {
+  // Handle: ["rename", "to", "<pattern>"] -> ["rename", "<pattern>", "."]
+  const pattern = args[2];
+  process.argv = [...process.argv.slice(0, 2), "rename", pattern, "."];
+} else if (args.length >= 4 && args[0] === "rename" && args[2] === "to") {
+  // Handle: ["rename", "<input>", "to", "<pattern>"] -> ["rename", "<pattern>", "<input>"]
   const input = args[1];
   const pattern = args[3];
   process.argv = [...process.argv.slice(0, 2), "rename", pattern, input];

@@ -471,3 +471,41 @@ test("should work with different image formats", async () => {
     await rm(testDir, { recursive: true, force: true });
   }
 });
+
+test("should rename files using shorthand syntax", async () => {
+  const testDir = join(tmpdir(), "bxl-rename-model-index-test-" + Date.now());
+  await mkdir(testDir, { recursive: true });
+
+  try {
+    // Generate test files with various names
+    await execAsync(
+      `node ${join(__dirname, "../../bin/cli.js")} generate file1_300x200.png`,
+      { cwd: testDir }
+    );
+    await execAsync(
+      `node ${join(__dirname, "../../bin/cli.js")} generate file2_150x100.jpg`,
+      { cwd: testDir }
+    );
+    await execAsync(
+      `node ${join(__dirname, "../../bin/cli.js")} generate file3_400x300.webp`,
+      { cwd: testDir }
+    );
+
+    const { stdout } = await execAsync(
+      `node ${join(__dirname, "../../bin/cli.js")} rename to "model_{index}"`,
+      {
+        cwd: testDir,
+      }
+    );
+
+    const files = await readdir(testDir);
+    files.sort();
+
+    assert.ok(files.includes("model_1.png"), "Should rename to model_1.png");
+    assert.ok(files.includes("model_2.jpg"), "Should rename to model_2.jpg");
+    assert.ok(files.includes("model_3.webp"), "Should rename to model_3.webp");
+    assert.equal(files.length, 3, "Should have exactly 3 files");
+  } finally {
+    await rm(testDir, { recursive: true, force: true });
+  }
+});
