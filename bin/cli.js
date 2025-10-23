@@ -60,6 +60,9 @@ to.command("webp [input]")
 
 program
   .command("remove <pattern>")
+  .alias("rm")
+  .alias("delete")
+  .alias("del")
   .description("Remove files matching the given pattern in current directory")
   .action(async (pattern) => {
     try {
@@ -104,6 +107,7 @@ program
 
 program
   .command("fetch <url>")
+  .alias("download")
   .description("Download a file from a URL to the current directory")
   .option("-o, --output <filename>", "Output filename")
   .action(async (url, options) => {
