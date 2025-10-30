@@ -119,13 +119,13 @@ bxl fetch <url>
 
 ```bash
 # Download a file from a URL (filename will be derived from URL)
-bxl fetch https://example.com/image.jpg
+bxl fetch "https://example.com/image.jpg"
 
 # Download a file with a custom filename
-bxl fetch https://example.com/image.jpg -o myimage.jpg
+bxl fetch "https://example.com/image.jpg" -o myimage.jpg
 
 # Download any file type
-bxl fetch https://example.com/document.pdf -o document.pdf
+bxl fetch "https://example.com/document.pdf" -o document.pdf
 ```
 
 The command automatically determines the filename from the URL if not specified. If the URL doesn't contain a filename, a default name will be used.
@@ -192,6 +192,31 @@ bxl rename . to "photo_{width}x{height}"
 Files are renamed in alphabetical order. If the pattern doesn't include an extension, the original file extensions are preserved.
 
 **Note:** When using `{width}` or `{height}` placeholders, only image files will be renamed. Non-image files will be skipped with a warning message.
+
+### Unique Files
+
+Remove duplicate files in the current directory using file content hashing.
+
+```bash
+bxl unique
+```
+
+Behavior:
+
+- Scans all files in the current working directory.
+- Uses an MD5 hash of file contents to detect duplicates.
+- Removes duplicate files, leaving a single copy of each unique file.
+- Prints a message for each removed duplicate (e.g., `Removed duplicate file: filename`).
+
+Examples:
+
+```bash
+# Remove duplicate files in the current directory
+bxl unique
+
+# Use in a specific directory
+cd ./downloads && bxl unique
+```
 
 ## Supported Image Formats
 

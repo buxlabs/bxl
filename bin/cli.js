@@ -4,6 +4,7 @@ import { Command } from "commander";
 import { transformFiles } from "../lib/transform.js";
 import { removeFiles } from "../lib/remove.js";
 import { renameFiles } from "../lib/rename.js";
+import { uniqueFiles } from "../lib/unique.js";
 import { fetchFile } from "../lib/fetch.js";
 import { generateFile } from "../lib/generate.js";
 import { readFile } from "fs/promises";
@@ -84,6 +85,18 @@ if (args.length >= 3 && args[0] === "rename" && args[1] === "to") {
   const pattern = args[3];
   process.argv = [...process.argv.slice(0, 2), "rename", pattern, input];
 }
+
+program
+  .command("unique")
+  .description("Remove duplicate files in the current directory")
+  .action(async () => {
+    try {
+      await uniqueFiles();
+    } catch (error) {
+      console.error("Error:", error.message);
+      process.exit(1);
+    }
+  });
 
 program
   .command("rename <pattern> [input]")
