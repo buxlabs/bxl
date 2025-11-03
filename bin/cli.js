@@ -4,6 +4,7 @@ import { Command } from "commander";
 import { transformFiles } from "../lib/transform.js";
 import { removeFiles } from "../lib/remove.js";
 import { renameFiles } from "../lib/rename.js";
+import { resizeFiles } from "../lib/resize.js";
 import { uniqueFiles } from "../lib/unique.js";
 import { fetchFile } from "../lib/fetch.js";
 import { generateFile } from "../lib/generate.js";
@@ -127,6 +128,19 @@ program
     try {
       const result = await fetchFile(url, options);
       console.log(`Downloaded ${result.filename} (${result.size} bytes)`);
+    } catch (error) {
+      console.error("Error:", error.message);
+      process.exit(1);
+    }
+  });
+
+program
+  .command("resize <size>")
+  .description("Resize images in the current directory")
+  .action(async (size, options) => {
+    try {
+      const result = await resizeFiles(size, options);
+      console.log(`Resized ${result.count} files)`);
     } catch (error) {
       console.error("Error:", error.message);
       process.exit(1);
