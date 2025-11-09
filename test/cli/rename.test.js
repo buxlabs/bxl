@@ -2,7 +2,7 @@ import { test } from "node:test";
 import { strict as assert } from "node:assert";
 import { exec } from "child_process";
 import { promisify } from "util";
-import { readFile, mkdir, rm, readdir } from "fs/promises";
+import { copyFile, mkdir, rm, readdir } from "fs/promises";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 import { tmpdir } from "os";
@@ -505,6 +505,61 @@ test("should rename files using shorthand syntax", async () => {
     assert.ok(files.includes("model_2.jpg"), "Should rename to model_2.jpg");
     assert.ok(files.includes("model_3.webp"), "Should rename to model_3.webp");
     assert.equal(files.length, 3, "Should have exactly 3 files");
+  } finally {
+    await rm(testDir, { recursive: true, force: true });
+  }
+});
+
+test("should rename without losing original files that match the pattern", async () => {
+  const fixtureDir = join(__dirname, "..", "fixtures", "rename-001");
+  const testDir = join(tmpdir(), "bxl-rename-collision-" + Date.now());
+  await mkdir(testDir, { recursive: true });
+
+  try {
+    // Prepare files: two source files plus a pre-existing target name
+    await copyFile(
+      join(fixtureDir, "test_150x100.jpg"),
+      join(testDir, "alpha_150x100.jpg")
+    );
+    await copyFile(
+      join(fixtureDir, "test_300x200.png"),
+      join(testDir, "beta_300x200.png")
+    );
+
+    // Create a pre-existing file that would collide with the first target name
+    await copyFile(
+      join(fixtureDir, "test_150x100.jpg"),
+      join(testDir, "model_1_150x100.jpg")
+    );
+
+    // Run the rename command which will produce model_1_150x100.jpg, model_2_300x200.png, model_3_150x100.jpg
+    await execAsync(
+      `node ${join(
+        __dirname,
+        "../../bin/cli.js"
+      )} rename . to "model_{index}_{width}x{height}"`,
+      {
+        cwd: testDir,
+      }
+    );
+
+    const files = await readdir(testDir);
+    files.sort();
+
+    // Ensure we still have 3 files and all expected final names exist
+    assert.equal(files.length, 3, "Should have exactly 3 files after rename");
+    assert.ok(
+      files.includes("model_1_150x100.jpg"),
+      "Should have model_1_150x100.jpg"
+    );
+    assert.ok(
+      files.includes("model_2_300x200.png"),
+      "Should have model_2_300x200.png"
+    );
+    assert.ok(
+      files.includes("model_3_150x100.jpg"),
+      "Should have model_3_150x100.jpg"
+    );
   } finally {
     await rm(testDir, { recursive: true, force: true });
   }
