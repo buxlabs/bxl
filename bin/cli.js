@@ -49,7 +49,7 @@ const to = transform.command("to").description("Convert images to format");
 
 to.command("webp [input]")
   .option("-o, --output <dir>", "Output directory", ".")
-  .option("-q, --quality <number>", "Quality (0-100)", "100")
+  .option("-q, --quality <number>", "Quality (0-100)", "70")
   .description("Convert images to webp format")
   .action(async (input = ".", options) => {
     try {
